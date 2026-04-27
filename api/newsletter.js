@@ -1,6 +1,6 @@
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_AUDIENCE_ID);
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -20,13 +20,13 @@ module.exports = async function handler(req, res) {
     });
 
     await resend.emails.send({
-      from: "The Creative Sanctuary <hello@thecreativesanctuary.com>",
+      from: "The Growth Journal <onboarding@resend.dev>",
       to: [email],
-      subject: `Welcome to The Creative Sanctuary, ${firstName}`,
+      subject: `Welcome to The Growth Journal, ${firstName}`,
       html: `
         <h2>Hi ${firstName}, welcome!</h2>
-        <p>Thank you for subscribing to The Creative Sanctuary newsletter.</p>
-        <p>You’ll receive creative insights, project updates, and weekly inspiration from us.</p>
+        <p>Thank you for subscribing to The Growth Journal.</p>
+        <p>You’ll receive weekly inspiration from us.</p>
       `,
     });
 
