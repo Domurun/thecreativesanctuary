@@ -48,32 +48,47 @@ filterButtons.forEach((button) => {
   });
 });
 
-// Contact Form Validation
-const contactForm = document.querySelector(".contact-form");
+const contactForm = document.querySelector("#contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
+  contactForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const inputs = contactForm.querySelectorAll("input, textarea");
-    let isValid = true;
+    const submitButton = contactForm.querySelector("button");
+    submitButton.textContent = "Sending...";
+    submitButton.disabled = true;
 
-    inputs.forEach((input) => {
-      if (input.hasAttribute("required") && input.value.trim() === "") {
-        input.classList.add("input-error");
-        isValid = false;
+    const formData = new FormData(contactForm);
+
+    const payload = {
+      firstName: formData.get("firstName"),
+      lastName: formData.get("lastName"),
+      email: formData.get("email"),
+      projectType: formData.get("projectType"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        showToast("Message sent successfully!");
+        contactForm.reset();
       } else {
-        input.classList.remove("input-error");
+        showToast("Something went wrong. Please try again.");
       }
-    });
-
-    if (!isValid) {
-      showToast("Please fill in all required fields.");
-      return;
+    } catch (error) {
+      showToast("Network error. Please try again.");
+    } finally {
+      submitButton.textContent = "Send Message →";
+      submitButton.disabled = false;
     }
-
-    showToast("Message sent successfully!");
-    contactForm.reset();
   });
 }
 
@@ -138,4 +153,45 @@ if (projectTypeInput) {
   if (selectedService) {
     projectTypeInput.value = selectedService;
   }
+}
+
+const newsletterForm = document.querySelector("#newsletterForm");
+
+if (newsletterForm) {
+  newsletterForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const button = newsletterForm.querySelector("button");
+    button.textContent = "Subscribing...";
+    button.disabled = true;
+
+    const formData = new FormData(newsletterForm);
+
+    const payload = {
+      firstName: formData.get("firstName"),
+      email: formData.get("email"),
+    };
+
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        showToast("Subscription successful!");
+        newsletterForm.reset();
+      } else {
+        showToast("Subscription failed. Please try again.");
+      }
+    } catch (error) {
+      showToast("Network error. Please try again.");
+    } finally {
+      button.textContent = "Subscribe";
+      button.disabled = false;
+    }
+  });
 }

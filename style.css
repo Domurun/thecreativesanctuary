@@ -1225,3 +1225,15 @@ footer a {
 .newsletter-form button:hover {
   opacity: 0.9;
 }
+
+.contact-link {
+  color: var(--purple);
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.contact-link:hover {
+  color: var(--rose);
+  text-decoration: underline;
+}
