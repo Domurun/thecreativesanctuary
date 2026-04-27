@@ -48,27 +48,25 @@ filterButtons.forEach((button) => {
   });
 });
 
-const contactForm = document.querySelector("#contactForm");
+const contactForm = document.getElementById("contactForm");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", async (e) => {
+  contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const submitButton = contactForm.querySelector("button");
-    submitButton.textContent = "Sending...";
-    submitButton.disabled = true;
-
-    const formData = new FormData(contactForm);
-
     const payload = {
-      firstName: formData.get("firstName"),
-      lastName: formData.get("lastName"),
-      email: formData.get("email"),
-      projectType: formData.get("projectType"),
-      message: formData.get("message"),
+      firstName: document.getElementById("firstName").value.trim(),
+      lastName: document.getElementById("lastName").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      projectType: document.getElementById("projectType").value.trim(),
+      message: document.getElementById("message").value.trim(),
     };
 
-    console.log("Form payload:", payload);
+    console.log("Payload being sent:", payload);
+
+    const button = contactForm.querySelector("button");
+    button.textContent = "Sending...";
+    button.disabled = true;
 
     try {
       const response = await fetch("/api/contact", {
@@ -88,8 +86,8 @@ if (contactForm) {
     } catch (error) {
       showToast("Network error. Please try again.");
     } finally {
-      submitButton.textContent = "Send Message →";
-      submitButton.disabled = false;
+      button.textContent = "Send Message →";
+      button.disabled = false;
     }
   });
 }
