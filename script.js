@@ -127,3 +127,15 @@ document.querySelectorAll(".play-btn, .project-overlay button").forEach((button)
     showToast("Video preview coming soon.");
   });
 });
+
+// Auto-fill project type from service page booking button
+const projectTypeInput = document.querySelector("#projectType");
+
+if (projectTypeInput) {
+  const params = new URLSearchParams(window.location.search);
+  const selectedService = params.get("service");
+
+  if (selectedService) {
+    projectTypeInput.value = selectedService;
+  }
+}
