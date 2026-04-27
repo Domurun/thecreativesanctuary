@@ -68,6 +68,8 @@ if (contactForm) {
       message: formData.get("message"),
     };
 
+    console.log("Form payload:", payload);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",

@@ -83,18 +83,19 @@
     </div>
 
     <form class="contact-form" id="contactForm">
-      <div class="form-row">
-        <input type="text" placeholder="First Name" required />
-        <input type="text" placeholder="Last Name" required />
-      </div>
+  <div class="form-row">
+    <input type="text" name="firstName" placeholder="First Name" required />
+    <input type="text" name="lastName" placeholder="Last Name" required />
+  </div>
 
-      <input type="email" placeholder="Email Address" required />
-      <input type="text" id="projectType" placeholder="Project Type" />
+  <input type="email" name="email" placeholder="Email Address" required />
 
-      <textarea placeholder="Tell us about your project..." rows="7"></textarea>
+  <input type="text" name="projectType" id="projectType" placeholder="Project Type" />
 
-      <button type="submit" class="primary-btn">Send Message →</button>
-    </form>
+  <textarea name="message" placeholder="Tell us about your project..." rows="7" required></textarea>
+
+  <button type="submit" class="primary-btn">Send Message →</button>
+</form>
   </section>
 </main>
 
