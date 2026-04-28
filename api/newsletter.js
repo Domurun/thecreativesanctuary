@@ -33,8 +33,9 @@ module.exports = async function handler(req, res) {
       subject: `Welcome to The Growth Journal, ${firstName}`,
       html: `
         <h2>Hi ${firstName}, welcome!</h2>
-        <p>Thank you for subscribing to The Growth Journal.</p>
-        <p>You’ll receive weekly inspiration from us.</p>
+        <p>Thank you for subscribing to <strong>The Growth Journal</strong>.</p>
+        <p>You’ll receive weekly inspiration, updates, and helpful content from us.</p>
+        <p>Warm regards,<br><strong>The Growth Journal</strong></p>
       `,
     });
 
