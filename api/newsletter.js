@@ -1,6 +1,6 @@
 const { Resend } = require("resend");
 
-const resend = new Resend(process.env.RESEND_AUDIENCE_ID);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
@@ -11,12 +11,20 @@ module.exports = async function handler(req, res) {
     const { firstName, email } = req.body;
 
     if (!firstName || !email) {
-      return res.status(400).json({ message: "Name and email are required" });
+      return res.status(400).json({
+        message: "Name and email are required",
+      });
     }
 
     await resend.contacts.create({
       email,
       firstName,
+      unsubscribed: false,
+      segments: [
+        {
+          id: process.env.RESEND_SEGMENT_ID,
+        },
+      ],
     });
 
     await resend.emails.send({
@@ -32,6 +40,11 @@ module.exports = async function handler(req, res) {
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    return res.status(500).json({ message: "Subscription failed" });
+    console.error("Newsletter error:", error);
+
+    return res.status(500).json({
+      message: "Subscription failed",
+      error: error.message,
+    });
   }
 };
