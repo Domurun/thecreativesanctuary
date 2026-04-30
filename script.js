@@ -69,7 +69,7 @@ if (contactForm) {
     button.disabled = true;
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("https://h73su2rotoaqy7kgwi5n53rosi0ufacz.lambda-url.eu-north-1.on.aws/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -173,7 +173,7 @@ if (newsletterForm) {
     };
 
     try {
-      const response = await fetch("/api/newsletter", {
+      const response = await fetch("https://ghcuvitwkpewlphr4hfmny5s5a0gdkzx.lambda-url.eu-north-1.on.aws/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
